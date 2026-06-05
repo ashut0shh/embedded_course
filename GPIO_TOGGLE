@@ -17,7 +17,12 @@ int main(void)
 	GPIO_MODER &= ~(3<<10);
 	GPIO_MODER |= (1<<10);
 	while(1){
-			GPIO_ODR ^= (1<<5);
+			GPIO_ODR ^= (1<<5); //toggling bits
+			/*  GPIOA_ODR |= (1<<5); //set
+				delay();
+
+				GPIOA_ODR &= ~(1<<5); //reset
+				delay();*/
 	delay();
 	}
 }
