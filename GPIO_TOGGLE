@@ -1,0 +1,23 @@
+### TO TOGGLE A LED USING GPIOA
+
+https://www.st.com/resource/en/reference_manual/rm0383-stm32f411xce-advanced-armbased-32bit-mcus-stmicroelectronics.pdf
+PAGE 91,118,158
+#include <stdint.h>
+#define RCC_AHB1ENR (*(volatile uint32_t*) 0x40023830)
+#define GPIO_BASE 0x40020000  //BASE ADDR TABLE @ PAGE38
+#define GPIO_MODER (*(volatile uint32_t*)(GPIO_BASE + 0x00))
+#define GPIO_ODR (*(volatile uint32_t*)(GPIO_BASE + 0x14))
+void delay(void)
+{
+    for(volatile uint32_t i=0;i<500000;i++);
+}
+int main(void)
+{
+	RCC_AHB1ENR |=(1<<0);
+	GPIO_MODER &= ~(3<<10);
+	GPIO_MODER |= (1<<10);
+	while(1){
+			GPIO_ODR ^= (1<<5);
+	delay();
+	}
+}
